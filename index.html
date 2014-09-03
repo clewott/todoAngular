@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo's with Angular</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body ng-app>
+<div class="container" ng-controller="MainController">
+  <h2>{{ todo }}</h2>
+  <form action="" ng-submit="addTask(newTask)">
+    <input type="text" placeholder="What needs to be done?" ng-model="newTask.todo">
+  </form>
+
+  <ul>
+    <li ng-repeat="task in list">
+      <button ng-click="slash=!slash">Check</button>
+      <span ng-class="{ strike : slash }">{{ task.todo }}</span>
+      <button ng-click="removeTask(task)">Delete</button>
+    </li>
+  </ul>
+
+  <ul class="categories">
+    <li>item(s) left</li>
+    <li><a href="" ng-repeat="task in list">All</a></li>
+    <li><a href="" ng-repeat="task in list | filter:{ slash: false}">Active</a></li>
+    <li><a href="" ng-repeat="task in list | filter:{ slash: true}">Completed</a></li>
+    <li>Clear completed</li>
+  </ul>
+
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>

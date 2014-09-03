@@ -1,0 +1,15 @@
+.strike {
+  text-decoration: line-through;
+}
+
+.categories {
+  list-style-type: none;
+}
+
+.categories li {
+  display: inline-block;
+}
+
+.categories a {
+  text-decoration: none;
+}
