@@ -3,34 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <title>Todo's with Angular</title>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css">
 </head>
+
 <body ng-app>
 <div class="container" ng-controller="MainController">
-  <h2>{{ todo }}</h2>
-  <form action="" ng-submit="addTask(newTask)">
-    <input type="text" placeholder="What needs to be done?" ng-model="newTask.todo">
-  </form>
+  <h2>todos</h2>
+  <div>
+    <form class="create" ng-submit="addTask(newTask)">
+      <button type="submit">
+        <i class="fa fa-angle-double-down"></i>
+      </button>
+      <input type="text" placeholder="What needs to be done?" ng-model="newTask.todo">
+    </form>
+  </div>
 
-  <ul>
+  <ul class="items">
     <li ng-repeat="task in list">
-      <button ng-click="slash=!slash">Check</button>
-      <span ng-class="{ strike : slash }">{{ task.todo }}</span>
-      <button ng-click="removeTask(task)">Delete</button>
+      <button ng-click="task.completed = !task.completed">
+        <i class="fa fa-check"></i>
+      </button>
+        <span ng-dblclick="edit = true" ng-hide="edit" ng-class="{ strike : task.completed }">{{ task.name }}</span>
+        <form ng-show="edit">
+          <input type="text" ng-model="task.name">
+          <input type="submit" value="Edit Todo" ng-click="edit = false">
+          <button ng-click="removeTask(task)">
+            <i class="fa fa-times"></i>
+          </button>
+        </form>
     </li>
-  </ul>
-
-  <ul class="categories">
-    <li>item(s) left</li>
-    <li><a href="" ng-repeat="task in list">All</a></li>
-    <li><a href="" ng-repeat="task in list | filter:{ slash: false}">Active</a></li>
-    <li><a href="" ng-repeat="task in list | filter:{ slash: true}">Completed</a></li>
-    <li>Clear completed</li>
   </ul>
 
 </div>
 
+
+  <footer>
+    <section>
+      <p>{{incompleteTodos()}} item(s) left</p>
+    </section>
+  <ul class="categories">
+  <li><a href="" ng-repeat="task in list">All</a></li>
+  <li><a href="" ng-repeat="task in list | filter:{ slash: false}">Active</a></li>
+  <li><a href="" ng-repeat="task in list | filter:{ slash: true}">Completed</a></li>
+  </ul>
+  </footer>
+
+
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
 <script src="scripts/main.js"></script>
 </body>
